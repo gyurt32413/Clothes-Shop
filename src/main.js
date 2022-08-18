@@ -1,11 +1,22 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./router";
 
-import './assets/main.css'
+/* import the fontawesome core */
+import { library } from "@fortawesome/fontawesome-svg-core";
 
-const app = createApp(App)
+/* import font awesome icon component */
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-app.use(router)
+/* import specific icons */
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
-app.mount('#app')
+/* add icons to the library */
+library.add(faCartShopping);
+
+const app = createApp(App);
+
+app.use(router);
+app.component("font-awesome-icon", FontAwesomeIcon);
+
+app.mount("#app");

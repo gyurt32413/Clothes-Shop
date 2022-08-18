@@ -1,85 +1,72 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterLink, RouterView } from "vue-router";
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+    <div class="logo">
+      <RouterLink class="logo-title" to="/">Vite</RouterLink>
+    </div>
+    <input type="checkbox" name="nav-checkbok" id="nav-checkbok" />
+    <label for="nav-checkbok">
+      <div class="hamburger"></div>
+    </label>
+    <ul class="nav">
+      <li class="menu_men menu">
+        <RouterLink class="menu-link" to="/">MEN</RouterLink>
+      </li>
+      <li class="menu_women menu">
+        <RouterLink class="menu-link" to="/">WOMEN</RouterLink>
+      </li>
+      <li class="menu_kids menu">
+        <RouterLink class="menu-link" to="/">KIDS</RouterLink>
+      </li>
+      <li class="menu_sport menu">
+        <RouterLink class="menu-link" to="/">SPORTS</RouterLink>
+      </li>
+    </ul>
+    <div class="shopping-cart">
+      <img
+        src="https://net.wimg.tw//templates/net/images/bag-icon.svg"
+        alt="cart-icon"
+      />
+      <span class="cart-items-count">3</span>
     </div>
   </header>
-
-  <RouterView />
+  <main>
+    <RouterView />
+  </main>
+  <footer>
+    <ul class="footer-top">
+      <li class="footer-item">
+        <a class="footer-link" href="#">聯絡Vite</a>
+      </li>
+      <li class="footer-item">
+        <a class="footer-link" href="#">購物說明</a>
+      </li>
+      <li class="footer-item">
+        <a class="footer-link" href="#">最新消息</a>
+      </li>
+      <li class="footer-item">
+        <a class="footer-link" href="#">品牌日誌</a>
+      </li>
+    </ul>
+    <ul class="footer-bottom">
+      <li class="footer-item">
+        <a class="footer-link" href="#">網站使用條款</a>
+      </li>
+      <li class="footer-item">
+        <a class="footer-link" href="#">隱私權政策</a>
+      </li>
+      <li class="footer-item">
+        <a class="footer-link" href="#">免責聲明</a>
+      </li>
+    </ul>
+    <div class="copyright"><span class="copyright-word">COPYRIGHT@Vite CO.,LTD.ALL RIGHTS RESERVED.</span></div>
+  </footer>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
+<style lang="scss">
+@import "./assets/SCSS/css-reset.scss";
+@import "./assets/SCSS/App.scss";
 </style>
