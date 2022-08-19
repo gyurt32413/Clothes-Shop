@@ -15,6 +15,7 @@ header {
   justify-content: space-around;
   background: #fff;
   box-shadow: 0 0 3px 0 rgba(0,0,0,0.08);
+  z-index: 999;
   .logo {
     order: 2;
     .logo-title {
@@ -87,9 +88,12 @@ header {
     transition: transform 0.2s;
     .menu {
       opacity: 0;
-       margin-bottom: 0.5rem;
-      .menu-link:hover{
-        color: $dark-gray;
+      margin-bottom: 0.5rem;
+      .menu-link {
+        color: $light-gray;
+        &:hover {
+          color: $dark-gray;
+        }
       }
     }
   }
@@ -98,7 +102,6 @@ header {
 main {
   padding-top: 60px;
   background: $body-bg;
-  height: 1000px;
 }
 
 footer {

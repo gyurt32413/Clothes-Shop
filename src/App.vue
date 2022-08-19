@@ -1,7 +1,3 @@
-<script setup>
-import { RouterLink, RouterView } from "vue-router";
-</script>
-
 <template>
   <header>
     <div class="logo">
@@ -13,7 +9,7 @@ import { RouterLink, RouterView } from "vue-router";
     </label>
     <ul class="nav">
       <li class="menu_men menu">
-        <RouterLink class="menu-link" to="/">MEN</RouterLink>
+        <RouterLink class="menu-link" to="/man">MEN</RouterLink>
       </li>
       <li class="menu_women menu">
         <RouterLink class="menu-link" to="/">WOMEN</RouterLink>
@@ -62,9 +58,19 @@ import { RouterLink, RouterView } from "vue-router";
         <a class="footer-link" href="#">免責聲明</a>
       </li>
     </ul>
-    <div class="copyright"><span class="copyright-word">COPYRIGHT@Vite CO.,LTD.ALL RIGHTS RESERVED.</span></div>
+    <div class="copyright">
+      <span class="copyright-word"
+        >COPYRIGHT@Vite CO.,LTD.ALL RIGHTS RESERVED.</span
+      >
+    </div>
   </footer>
 </template>
+
+<script setup>
+import { RouterLink, RouterView } from "vue-router";
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+</script>
 
 <style lang="scss">
 @import "./assets/SCSS/css-reset.scss";
