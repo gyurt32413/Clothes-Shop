@@ -1,10 +1,15 @@
- /* basic setting */
-$body-bg: #f8f7fc;
+/* basic setting */
+$body-bg: #fff;
 $body-color: #18253d;
 $white: #fff;
-$main-blue: #001935;
-$secondary-blue: #3c88fd;
-$freedom-blue: #02b8ff;
 $dark-gray: #70421a;
 $light-gray: #706e6c;
+// $line-color: #666666;
+$line-color: rgba(0, 0, 0, 0.1);
 
+
+@mixin dfSet($justify,$align) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+}

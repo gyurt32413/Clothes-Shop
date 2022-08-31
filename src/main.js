@@ -9,10 +9,22 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 /* import specific icons */
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCartShopping,
+  faAngleRight,
+  faCircleChevronRight,
+  faCirclePlus,
+  faCircleMinus
+} from "@fortawesome/free-solid-svg-icons";
 
 /* add icons to the library */
-library.add(faCartShopping);
+library.add(
+  faCartShopping,
+  faAngleRight,
+  faCircleChevronRight,
+  faCirclePlus,
+  faCircleMinus
+);
 
 const app = createApp(App);
 

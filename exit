@@ -1,0 +1,23 @@
+[33mcommit 3a71561553d3f77f40c128b9d717222dccb5f4d2[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: gyurt32413 <gyurt32413@gmail.com>
+Date:   Thu Aug 25 21:08:04 2022 +0800
+
+    Complete clothes page's layout
+
+[33mcommit 877a413933bf78a6fccaae87d731e627e82d47f5[m
+Author: gyurt32413 <gyurt32413@gmail.com>
+Date:   Sat Aug 20 01:44:38 2022 +0800
+
+    Complete homepage layout
+
+[33mcommit d5613c7efaaa7dbe7581782dbbfcd7c2c0201039[m
+Author: gyurt32413 <gyurt32413@gmail.com>
+Date:   Thu Aug 18 16:18:17 2022 +0800
+
+    Import sass and fontawesome
+
+[33mcommit 5899def622e0dc50c9eb08fffceeccd69fa5d94a[m
+Author: gyurt32413 <gyurt32413@gmail.com>
+Date:   Tue Aug 16 01:47:44 2022 +0800
+
+    Create project

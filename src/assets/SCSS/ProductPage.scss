@@ -1,0 +1,204 @@
+@import "./shared-css.scss";
+
+.main-container {
+  width: 90%;
+  position: relative;
+  margin: 20px auto;
+  display: flex;
+}
+.product-container {
+  flex: 1;
+}
+
+.product-info {
+  max-width: 1100px;
+  margin: 0 auto;
+  .product-img {
+    img {
+      margin: 0 auto;
+      max-width: 300px;
+      height: auto;
+    }
+  }
+  .info-container {
+    max-height: 300px;
+    padding: 10px;
+    .info-top {
+      height: 30%;
+      .product-name {
+        margin: 0 auto;
+        max-width: 300px;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 600;
+      }
+      .price {
+        position: relative;
+        text-align: end;
+        .price-num {
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 40px;
+          font-weight: 600;
+          color: red;
+          &::before {
+            content: "NT$";
+            font-size: 14px;
+            position: absolute;
+            top: 0px;
+            right: 70px;
+          }
+        }
+      }
+    }
+    .info-middle {
+      height: 40%;
+      padding: 20px 0;
+      border-top: 1px solid $line-color;
+      border-bottom: 1px solid $line-color;
+      .colorlist {
+        margin-bottom: 20px;
+        @include dfSet(center, center);
+        .color-img {
+          width: 25px;
+          height: 25px;
+          margin-right: 10px;
+          padding: 1px;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+        .color-selected {
+          border: 1px solid #000;
+        }
+      }
+      .size-list {
+        @include dfSet(center, center);
+        .size {
+          @include dfSet(center, center);
+          width: 60px;
+          height: 25px;
+          background: $line-color;
+          margin-right: 20px;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+        .size-selected {
+          border: 1px solid #000;
+        }
+      }
+    }
+    .info-bottom {
+      height: 30%;
+      padding: 20px 0;
+      .add-cart {
+        margin-bottom: 20px;
+        @include dfSet(center, center);
+        .purchase-num {
+          @include dfSet(start, center);
+          .num {
+            color: #000;
+            margin: 0 10px;
+          }
+          .num-btn:hover {
+            cursor: pointer;
+          }
+        }
+        .addCartBtn {
+          margin-left: 30px;
+          padding: 5px 50px;
+          border-radius: 3px;
+          background: $dark-gray;
+          color: #fff;
+        }
+      }
+      .activity {
+        font-size: 10px;
+        span {
+          color: red;
+        }
+      }
+    }
+  }
+}
+
+.product-introduce {
+  max-width: 760px;
+  margin: 0 auto;
+  .img-container {
+    img {
+      max-width: 760px;
+      height: auto;
+      margin-top: 30px;
+    }
+  }
+  .text-container {
+    margin-top: 20px;
+    font-size: 13px;
+    li {
+      margin-bottom: 5px;
+      &::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        background: $light-gray;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 5px;
+      }
+    }
+    .size-table {
+      width: 100%;
+      max-width: 760px;
+      th,
+      td {
+        text-align: center;
+        border: 1px solid #000;
+      }
+      thead {
+        background: $light-gray;
+        th {
+          font-weight: 500;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+//桌機版
+@media screen and (min-width: 1024px) {
+  .product-container {
+    margin-left: 20px;
+  }
+  .product-info {
+    display: flex;
+    justify-content: space-around;
+    .product-img {
+      img {
+        min-width: 250px;
+        max-width: 400px;
+      }
+    }
+    .info-container {
+      .info-top {
+        .product-name {
+          text-align: start;
+        }
+      }
+      .info-middle {
+        .colorlist,
+        .size-list {
+          justify-content: start;
+          max-width: 400px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .main-container {
+    width: 70%;
+  }
+}

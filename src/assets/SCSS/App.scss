@@ -1,7 +1,7 @@
 @import "./shared-css.scss";
 
 * {
-  color: $light-gray
+  color: $light-gray;
 }
 
 header {
@@ -14,27 +14,27 @@ header {
   align-items: center;
   justify-content: space-around;
   background: #fff;
-  box-shadow: 0 0 3px 0 rgba(0,0,0,0.08);
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
   z-index: 999;
   .logo {
     order: 2;
     .logo-title {
       font-size: 2rem;
       font-weight: 600;
-      color: $dark-gray
+      color: $dark-gray;
     }
-  };
+  }
   #nav-checkbok {
     display: none;
-    &:checked ~.nav {
+    &:checked ~ .nav {
       transform: scale(1, 1);
       opacity: 1;
       .menu {
         opacity: 1;
-        transition: opacity 0.8s
+        transition: opacity 0.8s;
       }
     }
-  };
+  }
   label {
     height: 100%;
     display: flex;
@@ -47,34 +47,35 @@ header {
       width: 24px;
       height: 2px;
       background: rgb(193, 151, 151);
-      &::after, &::before {
-        content: '';
+      &::after,
+      &::before {
+        content: "";
         width: 24px;
         height: 2px;
         background: rgb(193, 151, 151);
         position: absolute;
-      };
+      }
       &::after {
         top: 22px;
-      };
+      }
       &::before {
         bottom: 22px;
-      };
-    };
-  };
+      }
+    }
+  }
   .shopping-cart {
     order: 3;
     position: relative;
     img {
       height: 22px;
-    };
+    }
     .cart-items-count {
       position: absolute;
       top: 10%;
       left: 50%;
-      transform: translateX(-50%)
+      transform: translateX(-50%);
     }
-  };
+  }
   .nav {
     background: #fff;
     width: 100%;

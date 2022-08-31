@@ -9,10 +9,10 @@
     </label>
     <ul class="nav">
       <li class="menu_men menu">
-        <RouterLink class="menu-link" to="/man">MEN</RouterLink>
+        <RouterLink class="menu-link" to="/men">MEN</RouterLink>
       </li>
       <li class="menu_women menu">
-        <RouterLink class="menu-link" to="/">WOMEN</RouterLink>
+        <RouterLink class="menu-link" to="/women">WOMEN</RouterLink>
       </li>
       <li class="menu_kids menu">
         <RouterLink class="menu-link" to="/">KIDS</RouterLink>
@@ -21,13 +21,13 @@
         <RouterLink class="menu-link" to="/">SPORTS</RouterLink>
       </li>
     </ul>
-    <div class="shopping-cart">
+    <RouterLink to="/checkout" class="shopping-cart">
       <img
         src="https://net.wimg.tw//templates/net/images/bag-icon.svg"
         alt="cart-icon"
       />
       <span class="cart-items-count">3</span>
-    </div>
+    </RouterLink>
   </header>
   <main>
     <RouterView />
