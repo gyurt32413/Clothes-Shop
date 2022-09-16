@@ -1,0 +1,231 @@
+@import "./shared-css.scss";
+.cart-checking {
+  border: 1px solid $line-color;
+  .selected-all {
+    border-bottom: 1px solid $line-color;
+    height: 50px;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    input[type="checkbox"] {
+      display: none;
+      &:checked + label[for="all"] {
+        background: $dark-gray;
+        &::after {
+          content: "✔";
+          font-size: 12px;
+          @include dfSet(center, center);
+          color: #fff;
+        }
+      }
+    }
+    label[for="all"] {
+      @include checkboxStyle;
+      margin-right: 20px;
+    }
+  }
+  .cart-item {
+    height: 120px;
+    position: relative;
+    padding: 20px;
+    @include dfSet(space-between, center);
+    > div {
+      @include dfSet(center, center);
+    }
+    label {
+      @include checkboxStyle;
+    }
+    input[type="checkbox"] {
+      display: none;
+      &:checked + label {
+        background: $dark-gray;
+        &::after {
+          content: "✔";
+          font-size: 12px;
+          @include dfSet(center, center);
+          color: #fff;
+        }
+      }
+    }
+    .item-img {
+      width: 80px;
+      height: 80px;
+    }
+    .item-info {
+      font-size: 14px;
+      .item-style {
+        width: auto;
+        height: auto;
+        margin-top: 10px;
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        background: $line-color;
+        &::after {
+          content: "⌵";
+          position: relative;
+          top: -1px;
+          font-weight: 800;
+          font-size: 12px;
+          margin-left: 10px;
+        }
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      #style-toggle {
+        &:checked + .style-selected {
+          display: block;
+        }
+      }
+      .style-selected {
+        display: none;
+        width: 300px;
+        height: 150px;
+        position: absolute;
+        top: 90%;
+        left: 0;
+        border: 1px solid $line-color;
+        padding-left: 10px;
+        padding-top: 20px;
+        background: #fff;
+        z-index: 999;
+        .color-list {
+          margin-bottom: 20px;
+          @include dfSet(start, center);
+          span {
+            margin-right: 10px;
+          }
+          .color-img {
+            @include colorSet;
+            &:hover {
+              cursor: pointer;
+            }
+          }
+          .color-selected {
+            border: 1px solid #000;
+          }
+        }
+        .size-list {
+          @include dfSet(start, center);
+          span {
+            margin-right: 10px;
+          }
+          .size {
+            @include sizeSet;
+            margin-right: 10px;
+            width: 40px;
+            &:hover {
+              cursor: pointer;
+            }
+          }
+          .size-selected {
+            border: 1px solid #000;
+          }
+        }
+        .style-confirmation {
+          position: absolute;
+          bottom: 10px;
+          left: 50%;
+          transform: translateX(-50%);
+          padding: 2px 30px;
+          border-radius: 2px;
+          background: $dark-gray;
+          color: #fff;
+          &:hover {
+            cursor: pointer;
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+    .cart-item-right {
+      height: 100%;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+    }
+    .item-num {
+      .num {
+        margin: 0 10px;
+      }
+      .num-btn:hover {
+        cursor: pointer;
+      }
+    }
+    .item-price {
+      color: #c14948;
+      text-align: end;
+    }
+    .item-deleted {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      color: #aca8a4;
+      &:hover {
+        cursor: pointer;
+        color: #706e6c;
+      }
+    }
+  }
+}
+.price-counting {
+  position: relative;
+  padding: 20px;
+  font-size: 14px;
+  > div {
+    margin-bottom: 10px;
+  }
+  .free-shipping {
+    position: absolute;
+    top: 250px;
+    left: 20px;
+  }
+  .product-price,
+  .shipping-fee,
+  .discount,
+  .total-price {
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+  .total-price {
+    border-top: 1px solid $line-color;
+    padding-top: 10px;
+    span:nth-child(2) {
+      font-size: 18px;
+      color: #c14948;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .cart-checking {
+    .cart-item {
+      .cart-item-right {
+        flex-direction: row;
+        align-items: center;
+        .item-price {
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+  .price-counting {
+    .product-price,
+    .shipping-fee,
+    .discount,
+    .total-price {
+      grid-template-columns: 50% auto;
+      margin-left: 50%;
+      text-align: end;
+    }
+    .purchase-num {
+      position: absolute;
+      left: 50%;
+    }
+    .free-shipping {
+      left: unset;
+      right: 0px;
+    }
+  }
+}

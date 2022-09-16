@@ -1,0 +1,317 @@
+@import "./shared-css.scss";
+@import "./StepOne.scss";
+//調整cart-items樣式
+#hidden-cart {
+  .item-style {
+    margin-top: 10px;
+    display: inline-block;
+    padding: 0;
+    border: 0px;
+    border-radius: 0px;
+    opacity: 0.6;
+    background: #fff;
+    &::after {
+      content: "";
+      position: relative;
+      top: -1px;
+      font-weight: 800;
+      font-size: 12px;
+      margin-left: 10px;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+//重複樣式
+%form-title {
+  border-bottom: 1px solid $line-color;
+  padding: 15px 20px;
+  font-weight: 600;
+}
+%form-item {
+  @include dfSet(left, center);
+  margin: 0px 20px;
+  padding: 15px 0px;
+  font-size: 14px;
+}
+%select-style {
+  .select-wrapper {
+    position: relative;
+    z-index: 0;
+    select {
+      width: 150px;
+      border: none;
+      appearance: none;
+      background-color: transparent;
+      &:hover {
+        cursor: pointer;
+      }
+      &:invalid {
+        color: #cccccc;
+      }
+    }
+    .toggle-icon {
+      position: absolute;
+      transform: rotate(90deg);
+      top: 2px;
+      right: 0;
+      z-index: -1;
+    }
+  }
+}
+
+.orderer-information {
+  display: flex;
+  flex-direction: column;
+  .total-price,
+  .total-num {
+    margin: 0 auto;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .total-num {
+    &:hover {
+      cursor: pointer;
+    }
+    .toggle-icon {
+      margin-left: 10px;
+      transform: rotate(90deg);
+    }
+  }
+  #hidden-cart {
+    display: none;
+    margin-bottom: 30px;
+  }
+  #cart-item-toggle {
+    display: none;
+    &:checked ~ .total-num .toggle-icon {
+      transform: rotate(-90deg);
+    }
+    &:checked ~ #hidden-cart {
+      display: block;
+    }
+  }
+  form {
+    .shipping-methods {
+      border: 1px solid $line-color;
+      margin-bottom: 40px;
+      .form-title {
+        @extend %form-title;
+      }
+      .shipping-method {
+        @extend %form-item;
+        &:not(:last-child) {
+          border-bottom: 1px solid $line-color;
+        }
+        &:hover {
+          cursor: pointer;
+        }
+        input {
+          width: 18px;
+          height: 18px;
+          margin-right: 10px;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    .recipient-info {
+      border: 1px solid $line-color;
+      margin-bottom: 40px;
+      .form-title {
+        @extend %form-title;
+      }
+      label {
+        @extend %form-item;
+        span {
+          width: 90px;
+        }
+        input[type="text"],
+        input[type="tel"] {
+          border: 0px;
+          &::placeholder {
+            color: #cccccc;
+          }
+        }
+      }
+      label:not(:last-child) {
+        border-bottom: 1px solid $line-color;
+      }
+      .address {
+        .pick-up-city,
+        .pick-up-district {
+          .select-wrapper {
+            width: 120px;
+            select {
+              width: 100%;
+            }
+          }
+        }
+      }
+      .pick-up-store,
+      .pick-up-city,
+      .pick-up-district {
+        @extend %select-style;
+        display: flex;
+        flex: 1;
+      }
+      .detail-address {
+        border-top: 1px solid $line-color;
+      }
+    }
+    .credit-card-info {
+      border: 1px solid $line-color;
+      margin-bottom: 40px;
+      .form-title {
+        @extend %form-title;
+      }
+      label {
+        @extend %form-item;
+        span {
+          width: 90px;
+        }
+        input[type="text"],
+        input[type="tel"] {
+          border: 0px;
+          &::placeholder {
+            color: #cccccc;
+          }
+        }
+      }
+      label:not(:last-child) {
+        border-bottom: 1px solid $line-color;
+      }
+      .due-date {
+        .slash {
+          width: unset;
+        }
+        input {
+          width: 40px;
+        }
+      }
+      .note {
+        @extend %form-item;
+      }
+    }
+    .invoice-info {
+      border: 1px solid $line-color;
+      .form-title {
+        @extend %form-title;
+      }
+      .invoice-wrapper {
+        @extend %form-item;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, auto));
+        grid-gap: 20px;
+        .invoice {
+          border: 1px solid #e3e1e1;
+          border-radius: 5px;
+          height: 40px;
+          @include dfSet(center, center);
+          &:hover {
+            cursor: pointer;
+          }
+        }
+        .selected {
+          border-color: $dark-gray;
+        }
+      }
+      .invoice-footer {
+        .invoice-personal,
+        .invoice-donation,
+        .invoice-carrier {
+          @extend %form-item;
+          padding-top: 0;
+        }
+        .invoice-personal {
+          color: #c0bcbc;
+        }
+        .invoice-company {
+          span,
+          input {
+            @extend %form-item;
+            padding-top: 0;
+          }
+          input[type="text"] {
+            border: 0px;
+            &::placeholder {
+              color: #cccccc;
+            }
+          }
+        }
+        .invoice-donation {
+          select {
+            padding: 2px 5px;
+            border-color: $line-color;
+            &:invalid {
+              color: #cccccc;
+            }
+          }
+        }
+        .invoice-carrier {
+          input[type="text"] {
+            border: 0px;
+            &::placeholder {
+              color: #cccccc;
+            }
+          }
+        }
+      }
+    }
+    .invoice-agreement {
+      margin-top: 20px;
+      @include dfSet(left, center);
+      input[type="checkbox"] {
+        display: none;
+        &:checked + label::after {
+          display: block;
+        }
+      }
+      label {
+        position: relative;
+        margin-right: 10px;
+        content: "";
+        width: 15px;
+        height: 15px;
+        border: 1px solid $line-color;
+        &::after {
+          content: "";
+          display: none;
+          position: absolute;
+          top: 2px;
+          left: 5px;
+          width: 4px;
+          height: 8px;
+          border: solid #676767;
+          border-width: 0 1px 1px 0;
+          transform: rotate(45deg);
+        }
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      span {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+//桌機板
+@media screen and (min-width: 480px) {
+  .address {
+    display: flex;
+    .pick-up-city,
+    .pick-up-district {
+      border: none !important;
+      .select-wrapper {
+        flex: 1;
+        select {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

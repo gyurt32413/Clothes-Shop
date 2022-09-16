@@ -1,0 +1,78 @@
+@import "./shared-css.scss";
+
+.main-container {
+  width: 100%;
+  position: relative;
+  margin: 20px auto;
+}
+
+.step-wrapper {
+  width: 100%;
+  max-width: 850px;
+  margin: 30px auto;
+  @include dfSet(space-around, center);
+  .step {
+    position: relative;
+    flex: 1;
+    @include dfSet(center, center);
+    flex-direction: column;
+    text-align: center;
+    line-height: 30px;
+    .circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: $line-color;
+    }
+    .step-description {
+      font-size: 12px;
+    }
+    &:not(:last-child)::after {
+      content: "";
+      width: calc(100% - 50px);
+      height: 2px;
+      background: $line-color;
+      position: absolute;
+      top: 25%;
+      left: calc(50% + 25px);
+    }
+  }
+}
+
+.processing-container {
+  width: 100%;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  max-width: 850px;
+  
+  .button-wrapper {
+    flex: 1;
+    margin-top: 200px;
+    @include dfSet(space-between, center);
+    .secondary-btn,
+    .primary-btn {
+      padding: 5px 50px;
+      border-radius: 5px;
+      background: $dark-gray;
+      color: #fff;
+    }
+    .secondary-btn {
+      opacity: 0.6;
+      &:hover {
+        cursor: pointer;
+        opacity: 0.4;
+      }
+    }
+  }
+}
+
+//桌機版
+@media screen and (min-width: 768px) {
+  .main-container {
+    width: 70%;
+  }
+  .processing-container {
+    margin: 20px auto;
+  }
+}

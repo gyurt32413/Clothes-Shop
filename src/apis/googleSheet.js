@@ -6,4 +6,8 @@ export default {
       "https://sheets.googleapis.com/v4/spreadsheets/1ViK6LFXot5uouK2HNlpKohT0mtli1rYrSV2woeVkvTM/values/women!A2:G?alt=json&key=AIzaSyAe-zDjqngmdcB2SlOctNzf8RJWuBj--xU"
     );
   },
+  getStoreInfo(data) {
+    return axios.post("https://logistics-stage.ecpay.com.tw/Express/map", data);
+  },
 };
+

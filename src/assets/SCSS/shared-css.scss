@@ -4,12 +4,39 @@ $body-color: #18253d;
 $white: #fff;
 $dark-gray: #70421a;
 $light-gray: #706e6c;
-// $line-color: #666666;
 $line-color: rgba(0, 0, 0, 0.1);
 
-
-@mixin dfSet($justify,$align) {
+@mixin dfSet($justify, $align) {
   display: flex;
   align-items: $align;
   justify-content: $justify;
+}
+
+@mixin colorSet {
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+  padding: 1px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@mixin sizeSet {
+  @include dfSet(center, center);
+  width: 60px;
+  height: 25px;
+  background: $line-color;
+  margin-right: 20px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@mixin checkboxStyle {
+  content: "";
+  width: 20px;
+  height: 20px;
+  border: 1px solid $line-color;
+  border-radius: 50%;
 }

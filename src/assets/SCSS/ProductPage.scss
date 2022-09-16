@@ -59,13 +59,7 @@
         margin-bottom: 20px;
         @include dfSet(center, center);
         .color-img {
-          width: 25px;
-          height: 25px;
-          margin-right: 10px;
-          padding: 1px;
-          &:hover {
-            cursor: pointer;
-          }
+          @include colorSet;
         }
         .color-selected {
           border: 1px solid #000;
@@ -74,14 +68,7 @@
       .size-list {
         @include dfSet(center, center);
         .size {
-          @include dfSet(center, center);
-          width: 60px;
-          height: 25px;
-          background: $line-color;
-          margin-right: 20px;
-          &:hover {
-            cursor: pointer;
-          }
+          @include sizeSet
         }
         .size-selected {
           border: 1px solid #000;

@@ -101,11 +101,13 @@ header {
 }
 
 main {
-  padding-top: 60px;
+  padding-top: 50px;
+  min-height: calc(100vh - 150px);
   background: $body-bg;
 }
 
 footer {
+  height: 150px;
   padding-top: 30px;
   background: #868686;
   .footer-top,
