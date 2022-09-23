@@ -1,13 +1,15 @@
 import axios from "axios";
 
 export default {
-  getWomenClothes() {
+  getClothes(data) {
     return axios.get(
-      "https://sheets.googleapis.com/v4/spreadsheets/1ViK6LFXot5uouK2HNlpKohT0mtli1rYrSV2woeVkvTM/values/women!A2:G?alt=json&key=AIzaSyAe-zDjqngmdcB2SlOctNzf8RJWuBj--xU"
+      `https://sheets.googleapis.com/v4/spreadsheets/1ViK6LFXot5uouK2HNlpKohT0mtli1rYrSV2woeVkvTM/values/${data}!A2:E?alt=json&key=AIzaSyAe-zDjqngmdcB2SlOctNzf8RJWuBj--xU`
     );
   },
-  getStoreInfo(data) {
-    return axios.post("https://logistics-stage.ecpay.com.tw/Express/map", data);
-  },
+  getProductInfo(productId) {
+    const sheetId = Number(productId) +1
+    return axios.get(
+      `https://sheets.googleapis.com/v4/spreadsheets/1ViK6LFXot5uouK2HNlpKohT0mtli1rYrSV2woeVkvTM/values/all!A${sheetId}:E${sheetId}?alt=json&key=AIzaSyAe-zDjqngmdcB2SlOctNzf8RJWuBj--xU`
+    )
+  }
 };
-

@@ -27,7 +27,7 @@
     .step-description {
       font-size: 12px;
     }
-    &:not(:last-child)::after {
+    .step-line {
       content: "";
       width: calc(100% - 50px);
       height: 2px;
@@ -35,6 +35,18 @@
       position: absolute;
       top: 25%;
       left: calc(50% + 25px);
+    }
+  }
+  .current-step,
+  .completed-step {
+    .circle {
+      background: $dark-gray;
+      color: #fff;
+    }
+  }
+  .completed-step {
+    .step-line {
+      background: $dark-gray;
     }
   }
 }
@@ -45,7 +57,7 @@
   display: flex;
   flex-direction: column;
   max-width: 850px;
-  
+
   .button-wrapper {
     flex: 1;
     margin-top: 200px;

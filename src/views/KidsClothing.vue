@@ -1,5 +1,5 @@
 <template>
-  <clothing-page :women-clothes="womenClothes" />
+  <clothing-page :kids-clothes="kidsClothes" />
 </template>
 
 <script>
@@ -9,19 +9,19 @@ import clothingPage from "../components/ClothingPage.vue";
 export default {
   data() {
     return {
-      womenClothes: [],
+      kidsClothes: [],
     };
   },
   components: {
     clothingPage,
   },
   created() {
-    this.getWomenClothes();
+    this.getKidsClothes();
   },
   methods: {
-    async getWomenClothes() {
+    async getKidsClothes() {
       try {
-        const { data } = await googleSheet.getClothes('women');
+        const { data } = await googleSheet.getClothes("kids");
         // 將取得的資料整理為物件格式
         data.values.forEach((element) => {
           const clothes = {
@@ -31,7 +31,7 @@ export default {
             picture: element[3],
             product_img: element[4],
           };
-          this.womenClothes.push(clothes);
+          this.kidsClothes.push(clothes);
         });
       } catch (error) {
         console.log(error);

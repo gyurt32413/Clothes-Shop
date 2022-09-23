@@ -6,13 +6,17 @@
         <a href="#">
           <img
             class="banner-img"
-            src="https://s3.lativ.com.tw/i/NewArrivalBanner/56222_1010X400_220808_TW_0.jpg"
+            :src="bannerImg[currentPage]"
             alt="banner-img"
           />
         </a>
       </section>
       <section class="product-card">
-        <router-link to="/product" v-for="item in clothes" class="card-wrapper">
+        <router-link
+          v-for="item in clothes"
+          :to="'/product/' + item.id"
+          class="card-wrapper"
+        >
           <img :src="item.picture" alt="card-img" class="card-img" />
           <div class="card-footer">
             <div class="product-name">{{ item.name }}</div>
@@ -34,16 +38,43 @@ export default {
   props: {
     womenClothes: {
       type: Object,
-      required: true,
+    },
+    menClothes: {
+      type: Object,
+    },
+    kidsClothes: {
+      type: Object,
+    },
+    sportsClothes: {
+      type: Object,
     },
   },
   data() {
     return {
       clothes: {},
+      bannerImg: {
+        women:
+          "https://s3.lativ.com.tw/i/NewArrivalBanner/56222_1010X400_220808_TW_0.jpg",
+        men: "https://s3.lativ.com.tw/i/NewArrivalBanner/58133_1010X400_220905_TW.jpg",
+        kids: "https://s3.lativ.com.tw/i/NewArrivalBanner/59242_1010X400_220905_TW.jpg",
+        sports:
+          "https://s3.lativ.com.tw/i/NewArrivalBanner/56701_1010X400_220829_TW.jpg",
+      },
+      currentPage: "",
     };
   },
   created() {
-    this.clothes = this.womenClothes;
+    this.getClothesInfo();
+    this.currentPage = this.$route.name;
+  },
+  methods: {
+    getClothesInfo() {
+      if (this.womenClothes) this.clothes = this.womenClothes;
+      if (this.menClothes) this.clothes = this.menClothes;
+      if (this.kidsClothes) this.clothes = this.kidsClothes;
+      if (this.sportsClothes) this.clothes = this.sportsClothes;
+    },
+    setProductInfo() {},
   },
 };
 </script>

@@ -73,13 +73,7 @@
           cursor: pointer;
         }
       }
-      #style-toggle {
-        &:checked + .style-selected {
-          display: block;
-        }
-      }
       .style-selected {
-        display: none;
         width: 300px;
         height: 150px;
         position: absolute;
@@ -146,11 +140,13 @@
       align-items: flex-end;
     }
     .item-num {
+      button:disabled {
+        .num-btn {
+          opacity: 0.5;
+        }
+      }
       .num {
         margin: 0 10px;
-      }
-      .num-btn:hover {
-        cursor: pointer;
       }
     }
     .item-price {
@@ -221,7 +217,7 @@
     }
     .purchase-num {
       position: absolute;
-      left: 50%;
+      left: 45%;
     }
     .free-shipping {
       left: unset;

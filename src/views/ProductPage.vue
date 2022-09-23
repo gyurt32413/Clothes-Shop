@@ -4,69 +4,92 @@
     <div class="product-container">
       <section class="product-info">
         <div class="product-img">
-          <img
-            src="https://s.lativ.com.tw/i/58120/58120021/5812002_500.jpg"
-            alt="product-img"
-            id="productImg"
-          />
+          <img :src="product.product_img" alt="product-img" id="productImg" />
         </div>
         <div class="info-container">
           <div class="info-top">
-            <div class="product-name">絲光棉寬鬆船領七分袖上衣-女</div>
+            <div class="product-name">
+              {{ product.name }} ({{ color }}-{{ size }})
+            </div>
             <div class="price">
-              <span class="price-num">500</span>
+              <span class="price-num">{{ product.price }}</span>
             </div>
           </div>
           <div class="info-middle">
             <div class="colorlist">
               <img
+                @click="changeColor('白色')"
                 src="https://s4.lativ.com.tw/i/58120/58120011/5812001_48.jpg"
-                alt="white"
-                class="color-img"
+                alt="白色"
+                :class="['color-img', { 'color-selected': color === '白色' }]"
               />
               <img
+                @click="changeColor('粉色')"
                 src="https://s3.lativ.com.tw/i/58120/58120021/5812002_48.jpg"
-                alt="white"
-                class="color-img"
+                alt="粉色"
+                :class="['color-img', { 'color-selected': color === '粉色' }]"
               />
               <img
+                @click="changeColor('酒紅')"
                 src="https://s4.lativ.com.tw/i/58120/58120031/5812003_48.jpg"
-                alt="white"
-                class="color-img"
+                alt="酒紅"
+                :class="['color-img', { 'color-selected': color === '酒紅' }]"
               />
               <img
+                @click="changeColor('棕色')"
                 src="https://s3.lativ.com.tw/i/58120/58120041/5812004_48.jpg"
-                alt="white"
-                class="color-img"
+                alt="棕色"
+                :class="['color-img', { 'color-selected': color === '棕色' }]"
               />
               <img
+                @click="changeColor('綠色')"
                 src="https://s4.lativ.com.tw/i/58120/58120051/5812005_48.jpg"
-                alt="white"
-                class="color-img"
+                alt="綠色"
+                :class="['color-img', { 'color-selected': color === '綠色' }]"
               />
             </div>
             <div class="size-list">
-              <span class="size">S</span>
-              <span class="size">M</span>
-              <span class="size">L</span>
-              <span class="size">XL</span>
+              <span
+                @click="changeSize('S')"
+                :class="['size', { 'size-selected': size === 'S' }]"
+                >S</span
+              >
+              <span
+                @click="changeSize('M')"
+                :class="['size', { 'size-selected': size === 'M' }]"
+                >M</span
+              >
+              <span
+                @click="changeSize('L')"
+                :class="['size', { 'size-selected': size === 'L' }]"
+                >L</span
+              >
+              <span
+                @click="changeSize('XL')"
+                :class="['size', { 'size-selected': size === 'XL' }]"
+                >XL</span
+              >
             </div>
           </div>
           <div class="info-bottom">
             <div class="add-cart">
               <div class="purchase-num">
                 <span style="margin-right: 5px; font-size: 12px">數量</span>
-                <font-awesome-icon
-                  class="num-btn"
-                  icon="fa-solid fa-circle-minus"
+                <button @click="minusNum" class="num-btn">
+                  <font-awesome-icon icon="fa-solid fa-circle-minus" />
+                </button>
+                <input
+                  class="num"
+                  v-model="num"
+                  type="text"
+                  maxlength="2"
+                  oninput="value=value.replace(/^0|[^\d]/g, '')"
                 />
-                <span class="num">0</span>
-                <font-awesome-icon
-                  class="num-btn"
-                  icon="fa-solid fa-circle-plus"
-                />
+                <button @click.stop="addNum" class="num-btn">
+                  <font-awesome-icon icon="fa-solid fa-circle-plus" />
+                </button>
               </div>
-              <button class="addCartBtn">加入購物車</button>
+              <button @click="addToCart" class="addCartBtn">加入購物車</button>
             </div>
             <div class="activity">
               <span>APP獨享！超取滿680免運費</span>
@@ -76,10 +99,6 @@
       </section>
       <section class="product-introduce">
         <div class="img-container">
-          <img
-            src="https://s.lativ.com.tw/i/58120/5812004_A_01.jpg"
-            alt="product-img "
-          />
           <img
             src="https://s4.lativ.com.tw/i/58120/58120_D_11.jpg"
             alt="product-img"
@@ -146,11 +165,72 @@
 </template>
 
 <script>
+import googleSheet from "../apis/googleSheet";
 import sideNavBar from "../components/SideNavBar.vue";
+import swal from "sweetalert";
 
 export default {
+  data() {
+    return {
+      product: {},
+      size: "S",
+      color: "白色",
+      num: 1,
+    };
+  },
   components: {
     sideNavBar,
+  },
+  created() {
+    this.getProductInfo(this.$route.params.id);
+  },
+  watch: {
+    $route(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.getProductInfo(this.$route.params.id);
+      }
+    },
+  },
+  methods: {
+    async getProductInfo(id) {
+      try {
+        const { data } = await googleSheet.getProductInfo(id);
+        const item = data.values[0];
+        this.product = {
+          id: item[0],
+          name: item[1],
+          price: item[2],
+          product_img: item[4],
+        };
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    changeColor(color) {
+      this.color = color;
+    },
+    changeSize(size) {
+      this.size = size;
+    },
+    addNum() {
+      this.num++;
+    },
+    minusNum() {
+      if (this.num > 1) this.num--;
+    },
+    addToCart() {
+      const cartItem = {
+        ...this.product,
+        size: this.size,
+        color: this.color,
+        num: this.num,
+      };
+      this.$store.commit("setCartItems", cartItem);
+      swal({
+        text: "成功將商品加入至購物車!",
+        icon: "success",
+      });
+    },
   },
 };
 </script>

@@ -39,4 +39,7 @@ $line-color: rgba(0, 0, 0, 0.1);
   height: 20px;
   border: 1px solid $line-color;
   border-radius: 50%;
+  &:hover {
+    cursor: pointer;
+  }
 }
