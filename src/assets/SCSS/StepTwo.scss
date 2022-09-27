@@ -80,8 +80,24 @@
     }
   }
   #hidden-cart {
-    display: none;
-    margin-bottom: 30px;
+    margin: 10px 0px 30px;
+    opacity: 0;
+    overflow-y: hidden;
+    transform-origin: top;
+    max-height: 0px;
+    transition: all 0.3s linear;
+    .cart-checking {
+      overflow-y: scroll;
+      max-height: 300px;
+      &::-webkit-scrollbar {
+        background: transparent;
+        width: 6px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: $line-color;
+        border-radius: 3px;
+      }
+    }
   }
   #cart-item-toggle {
     display: none;
@@ -89,7 +105,8 @@
       transform: rotate(-90deg);
     }
     &:checked ~ #hidden-cart {
-      display: block;
+      opacity: 1;
+      max-height: 600px;
     }
   }
   form {

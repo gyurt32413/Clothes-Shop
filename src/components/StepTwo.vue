@@ -3,53 +3,52 @@
     <input id="cart-item-toggle" type="checkbox" />
     <div class="total-price">
       <span>本次消費總計</span>
-      <span style="color: #c14948; font-size: 18px">NT$ 599</span>
+      <span style="color: #c14948; font-size: 18px"
+        >NT$ {{ moneyStyle(checkoutInfo.totalCost) }}</span
+      >
     </div>
     <label for="cart-item-toggle" class="total-num">
-      <span>總計 1 件商品</span>
+      <span>總計 {{ checkoutInfo.checkedProductNum }} 件商品</span>
       <font-awesome-icon class="toggle-icon" icon="fa-solid fa-angle-right" />
     </label>
     <div id="hidden-cart">
       <div class="cart-checking">
         <div class="cart-items">
-          <div class="cart-item">
+          <div v-for="item in checkedItems" :key="item.id" class="cart-item">
             <div class="cart-item-left">
-              <img
-                src="https://s.lativ.com.tw/i/56351/56351031/5635103_360.jpg"
-                alt="item-img"
-                class="item-img"
-              />
+              <img :src="item.product_img" alt="item-img" class="item-img" />
               <div class="item-info">
-                <div class="item-name">棉質直筒工作褲-男</div>
-                <label for="style-toggle" class="item-style">黑色-S</label>
+                <div class="item-name">{{ item.name }}</div>
+                <label for="style-toggle" class="item-style"
+                  >{{ item.color }}-{{ item.size }}</label
+                >
               </div>
             </div>
             <div class="cart-item-right">
               <div class="item-num">
-                <span class="num">1</span>
+                <span class="num">{{ item.num }}件</span>
               </div>
-              <div class="item-price">$ 80</div>
+              <div class="item-price">$ {{ moneyStyle(item.price) }}</div>
             </div>
           </div>
         </div>
       </div>
       <div class="price-counting">
-        <div class="purchase-num">共1件商品</div>
         <div class="product-price">
           <span>商品金額</span>
-          <span>$ 490</span>
+          <span>$ {{ moneyStyle(checkoutInfo.checkedProductPrice) }}</span>
         </div>
         <div class="shipping-fee">
           <span>運費</span>
-          <span>$ 0</span>
+          <span>$ {{ checkoutInfo.shippingFee }}</span>
         </div>
         <div class="discount">
           <span>帳戶扣抵</span>
-          <span>$ 0</span>
+          <span>$ {{ checkoutInfo.discount }}</span>
         </div>
         <div class="total-price">
           <span>小計</span>
-          <span>NT$ 450</span>
+          <span>NT$ {{ moneyStyle(checkoutInfo.totalCost) }}</span>
         </div>
       </div>
     </div>
@@ -61,6 +60,7 @@
             type="radio"
             name="shipping-method"
             value="7-11_pick-up-and-pay"
+            v-model="shippingMethods"
           />7-11取貨付款</label
         >
         <label class="shipping-method"
@@ -68,6 +68,7 @@
             type="radio"
             name="shipping-method"
             value="creditCard_home-delivery"
+            v-model="shippingMethods"
           />線上刷卡-宅配</label
         >
         <label class="shipping-method"
@@ -75,6 +76,7 @@
             type="radio"
             name="shipping-method"
             value="creditCard_7-11"
+            v-model="shippingMethods"
           />線上刷卡-7-11取貨 (請填真實姓名，超商將核對證件)</label
         >
       </div>
@@ -87,6 +89,7 @@
             name="full-name"
             maxlength="15"
             placeholder="輸入姓名"
+            v-model="formData.name"
           />
         </label>
         <label class="phone-number">
@@ -97,6 +100,7 @@
             maxlength="10"
             oninput="value=value.replace(/[^\d]/g,'')"
             placeholder="輸入有效手機號碼"
+            v-model="formData.phone"
           />
         </label>
         <label class="pick-up-store" v-show="1">
@@ -110,6 +114,7 @@
           <div class="select-wrapper">
             <select class="store-info" name="store-info">
               <option selected disabled value="">請選擇取件門市</option>
+              <option value="870401水景門市">870401水景門市</option>
             </select>
             <font-awesome-icon
               class="toggle-icon"
@@ -122,7 +127,7 @@
             <span>請選擇縣市</span>
             <div class="select-wrapper">
               <select
-                v-model="selectedCity"
+                v-model="formData.city"
                 required
                 class="store-info"
                 name="store-info"
@@ -131,7 +136,7 @@
                 <option
                   v-for="(city, index) in cities"
                   :key="city"
-                  :value="index"
+                  :value="city"
                 >
                   {{ city }}
                 </option>
@@ -146,7 +151,7 @@
             <span>請選擇地區</span>
             <div class="select-wrapper">
               <select
-                v-model="selectedDistrict"
+                v-model="formData.district"
                 required
                 class="store-info"
                 name="store-info"
@@ -154,7 +159,7 @@
                 <option selected disabled value="">請選擇地區</option>
                 <option
                   v-for="(district, index) in districts"
-                  :value="index"
+                  :value="district.name"
                   :key="district"
                 >
                   {{ district.name }}
@@ -173,6 +178,7 @@
             name="address"
             size="40"
             placeholder="請輸入地址"
+            v-model="formData.detailAddress"
           />
         </label>
       </div>
@@ -235,35 +241,35 @@
         <div @click="invoiceSelected" class="invoice-wrapper">
           <div
             data-invoice="personal"
-            :class="['invoice', { selected: invoiceCategories === 'personal' }]"
+            :class="['invoice', { selected: formData.invoiceCategories === 'personal' }]"
           >
             電子發票 - 個人
           </div>
           <div
             data-invoice="company"
-            :class="['invoice', { selected: invoiceCategories === 'company' }]"
+            :class="['invoice', { selected: formData.invoiceCategories === 'company' }]"
           >
             電子發票 - 公司
           </div>
           <div
             data-invoice="donation"
-            :class="['invoice', { selected: invoiceCategories === 'donation' }]"
+            :class="['invoice', { selected: formData.invoiceCategories === 'donation' }]"
           >
             捐贈發票
           </div>
           <div
             data-invoice="carrier"
-            :class="['invoice', { selected: invoiceCategories === 'carrier' }]"
+            :class="['invoice', { selected: formData.invoiceCategories === 'carrier' }]"
           >
             手機條碼載具
           </div>
         </div>
         <div class="invoice-footer">
-          <span v-if="invoiceCategories === 'personal'" class="invoice-personal"
+          <span v-if="formData.invoiceCategories === 'personal'" class="invoice-personal"
             >依財政部規定，發票已託管，無需開立紙本發票。</span
           >
           <div
-            v-else-if="invoiceCategories === 'company'"
+            v-else-if="formData.invoiceCategories === 'company'"
             class="invoice-company"
           >
             <input type="text" maxlength="15" placeholder="請輸入統一編號" />
@@ -272,7 +278,7 @@
             >
           </div>
           <div
-            v-else-if="invoiceCategories === 'donation'"
+            v-else-if="formData.invoiceCategories === 'donation'"
             class="invoice-donation"
           >
             <select name="donated-group" required>
@@ -313,12 +319,34 @@
 <script>
 import post from "../assets/post.json";
 export default {
+  props: {
+    checkedItems: {
+      type: Array,
+      required: true,
+    },
+    checkoutInfo: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
-      selectedCity: "",
-      selectedDistrict: "",
-      cardNumber: "",
-      invoiceCategories: "",
+      formData: {
+        cardNumber: "",
+        invoiceCategories: "",
+        shippingMethods: "",
+        name: "",
+        phone: "",
+        city: "",
+        district: "",
+        detailAddress: "",
+        dueDate_MM: "",
+        dueDate_YY: "",
+        lastThreeNum: "",
+        company: "",
+        donation: "",
+        carrier: "",
+      },
     };
   },
   computed: {
@@ -326,20 +354,22 @@ export default {
       return post.map((item) => item.name);
     },
     districts() {
-      if (this.selectedCity !== "") return post[this.selectedCity].districts;
+      if (this.formData.city !== "")
+        return post.filter((item) => item.name === this.formData.city)[0]
+          .districts;
     },
     formatCardNumber() {
-      return this.cardNumber ? this.cardNumber.match(/.{1,4}/g).join(" ") : "";
+      return this.formData.cardNumber ? this.formData.cardNumber.match(/.{1,4}/g).join(" ") : "";
     },
   },
   watch: {
-    selectedCity(newVal, oldVal) {
-      if (newVal !== oldVal) this.selectedDistrict = "";
+    "formData.city"(newVal, oldVal) {
+      if (newVal !== oldVal) this.formData.district = "";
     },
   },
   methods: {
     updateCardNumber(e) {
-      this.cardNumber = e.target.value;
+      this.formData.cardNumber = e.target.value;
     },
     focusNext(e) {
       const target = e.target;
@@ -352,7 +382,10 @@ export default {
     },
     invoiceSelected(e) {
       const invoice = e.target.dataset.invoice;
-      if (invoice) this.invoiceCategories = invoice;
+      if (invoice) this.formData.invoiceCategories = invoice;
+    },
+    moneyStyle(num) {
+      return num.toLocaleString();
     },
   },
 };

@@ -185,8 +185,9 @@ export default {
     this.getProductInfo(this.$route.params.id);
   },
   watch: {
+    //當產品頁的id變動時需重新取得產品資料
     $route(newVal, oldVal) {
-      if (newVal !== oldVal) {
+      if (newVal.name === "product" && newVal.params.id !== oldVal.params.id) {
         this.getProductInfo(this.$route.params.id);
       }
     },
@@ -224,6 +225,8 @@ export default {
         size: this.size,
         color: this.color,
         num: this.num,
+        // 用來區別同ID但不同款式的商品
+        cartItemId: this.product.id + this.size + this.color,
       };
       this.$store.commit("setCartItems", cartItem);
       swal({

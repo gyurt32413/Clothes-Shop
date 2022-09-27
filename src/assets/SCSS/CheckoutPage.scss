@@ -60,25 +60,37 @@
 
   .button-wrapper {
     flex: 1;
-    margin-top: 200px;
+    margin-top: 150px;
     @include dfSet(space-between, center);
-    .secondary-btn,
-    .primary-btn {
-      padding: 5px 50px;
-      border-radius: 5px;
-      background: $dark-gray;
-      color: #fff;
-    }
-    .secondary-btn {
-      opacity: 0.6;
-      &:hover {
-        cursor: pointer;
-        opacity: 0.4;
-      }
-    }
+  }
+}
+.secondary-btn,
+.primary-btn {
+  padding: 5px 50px;
+  border-radius: 5px;
+  background: $dark-gray;
+  color: #fff;
+}
+.primary-btn:disabled {
+  opacity: 0.6;
+}
+.secondary-btn {
+  opacity: 0.6;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.4;
   }
 }
 
+.no-items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .description {
+    font-size: 14px;
+    margin: 30px 0;
+  }
+}
 //桌機版
 @media screen and (min-width: 768px) {
   .main-container {

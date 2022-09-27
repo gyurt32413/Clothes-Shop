@@ -6,22 +6,26 @@
         <label for="all"></label>
         <span>全選</span>
       </div>
-      <div v-for="item in cartItems" :key="item.id" class="cart-item">
+      <div v-for="item in cartItems" :key="item.cartItemId" class="cart-item">
         <div class="cart-item-left">
           <input
             v-model="item.checked"
-            :id="'item-toggle' + item.id"
+            :id="'item-toggle' + item.cartItemId"
             type="checkbox"
           />
-          <label :for="'item-toggle' + item.id"></label>
-          <img :src="item.product_img" alt="item-img" class="item-img" />
+          <label :for="'item-toggle' + item.cartItemId"></label>
+          <RouterLink @click.stop="" :to="'/product/' + item.id">
+            <img :src="item.product_img" alt="item-img" class="item-img" />
+          </RouterLink>
           <div class="item-info">
-            <div class="item-name">{{ item.name }}</div>
+            <RouterLink @click.stop="" :to="'/product/' + item.id">
+              <div class="item-name">{{ item.name }}</div>
+            </RouterLink>
             <button @click="getCurrentEditedItem(item)" class="item-style">
               {{ item.color }}-{{ item.size }}
             </button>
             <div
-              v-show="currentEditedItem.id === item.id"
+              v-show="currentEditedItem.cartItemId === item.cartItemId"
               class="style-selected"
             >
               <div class="color-list">
@@ -112,7 +116,7 @@
                 </button>
               </div>
               <button
-                @click="updateCartItems(item.id)"
+                @click="updateCartItems(item.cartItemId)"
                 class="style-confirmation"
               >
                 確定
@@ -124,7 +128,7 @@
           <div class="item-num">
             <button
               :disabled="item.num === 1"
-              @click="minusProductNum(item.id)"
+              @click="minusProductNum(item.cartItemId)"
             >
               <font-awesome-icon
                 class="num-btn"
@@ -132,7 +136,7 @@
               />
             </button>
             <span class="num">{{ item.num }}</span>
-            <button @click="addProductNum(item.id)">
+            <button @click="addProductNum(item.cartItemId)">
               <font-awesome-icon
                 class="num-btn"
                 icon="fa-solid fa-circle-plus"
@@ -140,7 +144,7 @@
             </button>
           </div>
           <div class="item-price">$ {{ item.price }}</div>
-          <div @click="deleteItem(item.id)" class="item-deleted">✖</div>
+          <div @click="deleteItem(item.cartItemId)" class="item-deleted">✖</div>
         </div>
       </div>
     </div>
@@ -178,6 +182,7 @@
 
 <script>
 export default {
+  emits: ["checkedItems"],
   data() {
     return {
       cartItems: [],
@@ -235,9 +240,24 @@ export default {
       return this.checkedProductPrice + this.shippingFee + this.discount;
     },
   },
-
+  watch: {
+    cartItems: {
+      handler: function () {
+        this.$emit(
+          "checkedItems",
+          this.cartItems.filter((item) => item.checked)
+        );
+      },
+      deep: true,
+    },
+  },
   methods: {
     getCurrentEditedItem(item) {
+      //點擊相同地方有toggle效果
+      if (this.currentEditedItem.id) {
+        this.currentEditedItem = {};
+        return;
+      }
       this.currentEditedItem = { ...item };
     },
     changeCurrentColor(color) {
@@ -248,7 +268,7 @@ export default {
     },
     updateCartItems(itemId) {
       this.cartItems = this.cartItems.map((item) => {
-        if (item.id === itemId) {
+        if (item.cartItemId === itemId) {
           return { ...this.currentEditedItem };
         } else {
           return item;
@@ -261,7 +281,7 @@ export default {
     },
     addProductNum(itemId) {
       this.cartItems.forEach((item) => {
-        if (item.id === itemId) {
+        if (item.cartItemId === itemId) {
           item.num += 1;
         }
       });
@@ -270,7 +290,7 @@ export default {
     },
     minusProductNum(itemId) {
       this.cartItems.forEach((item) => {
-        if (item.id === itemId) {
+        if (item.cartItemId === itemId) {
           item.num -= 1;
         }
       });
@@ -278,7 +298,9 @@ export default {
       this.$store.commit("updateCartItems", this.cartItems);
     },
     deleteItem(itemId) {
-      this.cartItems = this.cartItems.filter((_item) => _item.id !== itemId);
+      this.cartItems = this.cartItems.filter(
+        (_item) => _item.cartItemId !== itemId
+      );
       //更新至vuex
       this.$store.commit("updateCartItems", this.cartItems);
     },

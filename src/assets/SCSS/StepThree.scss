@@ -1,0 +1,38 @@
+@import "./shared-css.scss";
+
+
+.comleting-notification {
+  text-align: center;
+  margin: 50px 0;
+  font-size: 18px;
+  font-weight: 600;
+  .success {
+    @include dfSet(center, center);
+  }
+  .success::before {
+    content: "✔";
+    margin-right: 5px;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    font-weight: 500;
+    border-radius: 50%;
+    background: $dark-gray;
+    color: #fff;
+    opacity: 0.7;
+  }
+  .order-number {
+    margin-top: 10px;
+  }
+  span {
+    color: rgb(157, 149, 149);
+  }
+}
+.order-information {
+  border: 1px solid $line-color;
+  box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.1);
+  padding: 20px;
+  div:not(:last-child) {
+    margin-bottom: 5px;
+  }
+}
