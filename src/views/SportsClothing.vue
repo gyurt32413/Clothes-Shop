@@ -1,25 +1,30 @@
 <template>
-  <clothing-page :sports-clothes="sportsClothes" />
+  <Spinner v-if="isLoading === true" />
+  <clothing-page :sports-clothes="sportsClothes" v-else/>
 </template>
 
 <script>
 import googleSheet from "../apis/googleSheet";
 import clothingPage from "../components/ClothingPage.vue";
+import Spinner from "../components/Spinner.vue";
 
 export default {
   data() {
     return {
       sportsClothes: [],
+      isLoading: false,
     };
   },
   components: {
     clothingPage,
+    Spinner,
   },
   created() {
     this.getSportsClothes();
   },
   methods: {
     async getSportsClothes() {
+      this.isLoading = true;
       try {
         const { data } = await googleSheet.getClothes("sports");
         // 將取得的資料整理為物件格式
@@ -33,8 +38,10 @@ export default {
           };
           this.sportsClothes.push(clothes);
         });
+        this.isLoading = false;
       } catch (error) {
         console.log(error);
+        this.isLoading = false;
       }
     },
   },

@@ -38,6 +38,7 @@
         <StepTwo
           :checked-items="checkedItems"
           :checkout-info="checkoutInfo"
+          ref="stepTwo"
           v-else-if="currentStep === 2"
         />
         <StepThree v-else />
@@ -51,7 +52,7 @@
           上一步
         </button>
         <button
-          v-if="currentStep !== 3"
+          v-if="currentStep === 1"
           @click="
             getCheckoutInfo();
             nextStep();
@@ -60,6 +61,13 @@
           :disabled="!checkedItems.length"
         >
           下一步
+        </button>
+        <button
+          v-if="currentStep === 2"
+          @click="hendleSubmit()"
+          class="primary-btn"
+        >
+          送出
         </button>
       </div>
     </div>
@@ -81,6 +89,7 @@
 import StepOne from "../components/StepOne.vue";
 import StepTwo from "../components/StepTwo.vue";
 import StepThree from "../components/StepThree.vue";
+import swal from "sweetalert";
 export default {
   components: {
     StepOne,
@@ -96,7 +105,7 @@ export default {
   },
   methods: {
     nextStep() {
-      if (this.currentStep === 1 || this.currentStep === 2) {
+      if (this.currentStep === 1) {
         this.currentStep += 1;
       }
       window.scroll(0, 0);
@@ -106,6 +115,17 @@ export default {
         this.currentStep -= 1;
       }
       window.scroll(0, 0);
+    },
+    async hendleSubmit() {
+      const result = await this.$refs.stepTwo.submitForm();
+      if (result) {
+        this.currentStep += 1;
+      } else {
+        swal({
+          text: "請確認所有資料填寫無誤",
+          icon: "error",
+        });
+      }
     },
     getCheckedItems(val) {
       this.checkedItems = val;

@@ -1,5 +1,6 @@
 <template>
-  <div class="main-container">
+  <Spinner v-if="isLoading === true" />
+  <div v-else class="main-container">
     <sideNavBar />
     <div class="product-container">
       <section class="product-info">
@@ -168,6 +169,7 @@
 import googleSheet from "../apis/googleSheet";
 import sideNavBar from "../components/SideNavBar.vue";
 import swal from "sweetalert";
+import Spinner from "../components/Spinner.vue";
 
 export default {
   data() {
@@ -176,10 +178,12 @@ export default {
       size: "S",
       color: "白色",
       num: 1,
+      isLoading: false,
     };
   },
   components: {
     sideNavBar,
+    Spinner
   },
   created() {
     this.getProductInfo(this.$route.params.id);
@@ -194,6 +198,7 @@ export default {
   },
   methods: {
     async getProductInfo(id) {
+      this.isLoading = true;
       try {
         const { data } = await googleSheet.getProductInfo(id);
         const item = data.values[0];
@@ -203,8 +208,10 @@ export default {
           price: item[2],
           product_img: item[4],
         };
+        this.isLoading = false;
       } catch (error) {
         console.log(error);
+        this.isLoading = false;
       }
     },
     changeColor(color) {
