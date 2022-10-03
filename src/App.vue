@@ -1,5 +1,8 @@
 <template >
-  <div @click.stop="navToggle">
+  <div
+    style="height: 100vh; display: flex; flex-direction: column"
+    @click.stop="navToggle"
+  >
     <header>
       <div class="header-container">
         <div class="logo">
@@ -61,7 +64,7 @@
         </div>
       </div>
     </header>
-    <main>
+    <main style="flex: 1">
       <RouterView />
     </main>
     <footer>
@@ -91,9 +94,11 @@
             <a class="footer-link" href="#">免責聲明</a>
           </li>
         </ul>
+
         <div class="copyright">
+          <span class="copyright-word">COPYRIGHT@Vite CO.,LTD.</span>
           <span class="copyright-word"
-            >COPYRIGHT@Vite CO.,LTD.ALL RIGHTS RESERVED.</span
+            >本站僅作品練習，圖資來源為網路資源，無任何商業營利用途</span
           >
         </div>
       </div>

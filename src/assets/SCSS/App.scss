@@ -155,13 +155,12 @@ header {
 
 main {
   padding-top: 50px;
-  min-height: calc(100vh - 150px);
   background: $body-bg;
 }
 
 footer {
   height: 150px;
-  padding-top: 30px;
+  @include dfSet(center, center);
   background: #868686;
 }
 
@@ -180,7 +179,9 @@ footer {
   }
   color: #fff;
   .copyright {
-    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    margin: 10px auto;
     text-align: center;
     .copyright-word {
       font-size: 12px;
@@ -231,8 +232,7 @@ footer {
   }
   footer {
     margin-top: 20px;
-    padding-top: 10px;
-    height: 60px;
+    height: 80px;
   }
   .footer-container {
     @include dfSet(space-between, center);
