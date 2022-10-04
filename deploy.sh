@@ -19,5 +19,5 @@ git init
 git checkout -b main
 git add -A
 git commit -m 'deploy'
-git push -f https://github.com/gyurt32413/clothes-E-Store main:gh-pages
+git push -f https://github.com/gyurt32413/Clothes-Shop.git
 cd-
