@@ -60,6 +60,7 @@ export default {
         sports:
           "https://s3.lativ.com.tw/i/NewArrivalBanner/56701_1010X400_220829_TW.jpg",
       },
+      //根據不同Page顯示不同的banner
       currentPage: "",
     };
   },

@@ -117,6 +117,7 @@ export default {
       window.scroll(0, 0);
     },
     async hendleSubmit() {
+      //判斷stepTwo的表單驗證是否通過
       const result = await this.$refs.stepTwo.submitForm();
       if (result) {
         this.currentStep += 1;
@@ -128,10 +129,11 @@ export default {
       }
     },
     getCheckedItems(val) {
+      //取得要結帳的商品資料傳至step2
       this.checkedItems = val;
     },
     getCheckoutInfo() {
-      //取得要結帳的商品資料傳至step2
+      //取得結帳資訊傳至step2
       const stepOne = this.$refs.stepOne;
       if (this.currentStep === 1) {
         this.checkoutInfo = {
@@ -144,6 +146,7 @@ export default {
       }
     },
     hiddenStyle(el) {
+      //點擊商品款式其他位置可以關閉
       if (this.$store.state.cartItems.length && this.currentStep === 1) {
         if (
           !el.target.closest(".style-selected") &&

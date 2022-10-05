@@ -202,9 +202,11 @@ export default {
     },
     checkedAll: {
       get() {
+        //未勾選的商品為零表示全選
         return this.unCheckedItems.length === 0;
       },
       set(value) {
+        //點擊全選時更改購物車全部商品的check狀態
         console.log(value);
         this.cartItems = this.cartItems.map((item) => ({
           ...item,
@@ -242,6 +244,7 @@ export default {
   },
   watch: {
     cartItems: {
+      //將最新的購物車商品資訊傳至step2
       handler: function () {
         this.$emit(
           "checkedItems",
@@ -253,7 +256,7 @@ export default {
   },
   methods: {
     getCurrentEditedItem(item) {
-      //點擊相同地方有toggle效果
+      //點擊商品樣式有toggle效果
       if (this.currentEditedItem.id) {
         this.currentEditedItem = {};
         return;

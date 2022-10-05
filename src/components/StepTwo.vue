@@ -394,14 +394,6 @@
           </div>
         </div>
       </div>
-      <div class="invoice-agreement">
-        <input type="checkbox" id="agreement-toggle" name="agreement-toggle" />
-        <label for="agreement-toggle"></label>
-        <span
-          >我同意辦理退貨時，由 lativ
-          代為處理電子發票及銷貨退回折讓單以加速退款作業。</span
-        >
-      </div>
     </form>
   </div>
 </template>
@@ -616,6 +608,7 @@ export default {
         ? this.formData.cardNumber.match(/.{1,4}/g).join(" ")
         : "";
     },
+    //拆分付款方式及運送方式
     payingMethod() {
       const data = this.formData.payment_shipping;
       if (data.includes("creditCard")) {
@@ -634,14 +627,17 @@ export default {
     },
   },
   watch: {
+    //選擇不同縣市時清空地區
     "formData.city"(newVal, oldVal) {
       if (newVal !== oldVal) this.formData.district = "";
     },
   },
   methods: {
+    //因input欄位包含每四碼的空格，故不使用v-model綁定
     updateCardNumber(e) {
       this.formData.cardNumber = e.target.value;
     },
+    //信用卡的到期日及末三碼填完都會自動跳到下一欄
     focusNext(e) {
       const target = e.target;
       const inputs = Array.from(target.form.querySelectorAll(".card"));
