@@ -214,7 +214,7 @@ footer {
       .menu {
         all: unset;
         @include dfSet(center, center);
-        width: 132px;
+        width: 120px;
         &:not(:last-child) {
           border-right: 1px solid $line-color;
         }

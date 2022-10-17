@@ -209,7 +209,6 @@ export default {
       },
       set(value) {
         //點擊全選時更改購物車全部商品的check狀態
-        console.log(value);
         this.cartItems = this.cartItems.map((item) => ({
           ...item,
           checked: value,

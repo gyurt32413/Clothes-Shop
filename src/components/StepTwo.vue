@@ -406,13 +406,17 @@ import { moneyStyle } from "../utils/mixins";
 
 //表單驗證客製規則
 const phoneRule = (value) => /^09\d{8}$/g.test(value);
-const addressRule = (value) => /.{5,}$/g.test(value);
-const cardNumberRule = (value) => /\d{16}$/g.test(value);
-const dueDateRule_MM = (value) => /(^0\d$)|(^1[012])/g.test(value);
-const dueDateRule_YY = (value) => /^\d{2}$/g.test(value) && value >= 22;
-const lastThreeNumRule = (value) => /^\d{3}$/g.test(value);
-const companyRule = (value) => /^\d{8}$/g.test(value);
-const carrierRule = (value) => /^\/[0-9A-Z.+-]{7}$/g.test(value);
+const addressRule = (value) => !helpers.req(value) || /.{5,}$/g.test(value);
+const cardNumberRule = (value) => !helpers.req(value) || /\d{16}$/g.test(value);
+const dueDateRule_MM = (value) =>
+  !helpers.req(value) || /(^0\d$)|(^1[012])/g.test(value);
+const dueDateRule_YY = (value) =>
+  !helpers.req(value) || (/^\d{2}$/g.test(value) && value >= 22);
+const lastThreeNumRule = (value) =>
+  !helpers.req(value) || /^\d{3}$/g.test(value);
+const companyRule = (value) => !helpers.req(value) || /^\d{8}$/g.test(value);
+const carrierRule = (value) =>
+  !helpers.req(value) || /^\/[0-9A-Z.+-]{7}$/g.test(value);
 
 export default {
   props: {
@@ -491,12 +495,7 @@ export default {
               return this.shippingMethod === "home-delivery";
             })
           ),
-          addressRule: helpers.withMessage(
-            "收件地址長度不足",
-            requiredIf(function () {
-              return this.shippingMethod === "home-delivery";
-            })
-          ),
+          addressRule: helpers.withMessage("收件地址長度不足", addressRule),
         },
         cardNumber: {
           required: helpers.withMessage(
@@ -507,9 +506,7 @@ export default {
           ),
           cardNumberRule: helpers.withMessage(
             "請確認是否為有效信用卡號碼",
-            requiredIf(function () {
-              return this.payingMethod === "creditCard";
-            })
+            cardNumberRule
           ),
         },
         dueDate_MM: {
@@ -521,9 +518,7 @@ export default {
           ),
           dueDateRule_MM: helpers.withMessage(
             "請確認是否為正確的有效期限",
-            requiredIf(function () {
-              return this.payingMethod === "creditCard";
-            })
+            dueDateRule_MM
           ),
         },
         dueDate_YY: {
@@ -535,9 +530,7 @@ export default {
           ),
           dueDateRule_YY: helpers.withMessage(
             "請確認是否為正確的有效期限",
-            requiredIf(function () {
-              return this.payingMethod === "creditCard";
-            })
+            dueDateRule_YY
           ),
         },
         lastThreeNum: {
@@ -549,9 +542,7 @@ export default {
           ),
           lastThreeNumRule: helpers.withMessage(
             "請確認是否為正確的末三碼",
-            requiredIf(function () {
-              return this.payingMethod === "creditCard";
-            })
+            lastThreeNumRule
           ),
         },
         invoiceCategories: {
@@ -566,9 +557,7 @@ export default {
           ),
           companyRule: helpers.withMessage(
             "請確認是否為正確的統一編號",
-            requiredIf(function () {
-              return this.formData.invoiceCategories === "company";
-            })
+            companyRule
           ),
         },
         donation: {
@@ -588,9 +577,7 @@ export default {
           ),
           carrierRule: helpers.withMessage(
             "請確認是否為正確的手機載具條碼",
-            requiredIf(function () {
-              return this.formData.invoiceCategories === "carrier";
-            })
+            carrierRule
           ),
         },
       },
