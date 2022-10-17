@@ -181,8 +181,10 @@
 </template>
 
 <script>
+import { moneyStyle } from "../utils/mixins";
 export default {
   emits: ["checkedItems"],
+  mixins: [moneyStyle],
   data() {
     return {
       cartItems: [],
@@ -306,9 +308,6 @@ export default {
       );
       //更新至vuex
       this.$store.commit("updateCartItems", this.cartItems);
-    },
-    moneyStyle(num) {
-      return num.toLocaleString();
     },
   },
 };

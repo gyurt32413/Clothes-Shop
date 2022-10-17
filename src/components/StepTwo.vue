@@ -402,6 +402,7 @@
 import post from "../assets/post.json";
 import useVuelidate from "@vuelidate/core";
 import { required, requiredIf, helpers } from "@vuelidate/validators";
+import { moneyStyle } from "../utils/mixins";
 
 //表單驗證客製規則
 const phoneRule = (value) => /^09\d{8}$/g.test(value);
@@ -424,6 +425,7 @@ export default {
       required: true,
     },
   },
+  mixins: [moneyStyle],
   data() {
     return {
       v$: useVuelidate(),
@@ -649,9 +651,6 @@ export default {
     invoiceSelected(e) {
       const invoice = e.target.dataset.invoice;
       if (invoice) this.formData.invoiceCategories = invoice;
-    },
-    moneyStyle(num) {
-      return num.toLocaleString();
     },
     wrongMessage(data) {
       const errors = this.v$.formData[data].$errors;

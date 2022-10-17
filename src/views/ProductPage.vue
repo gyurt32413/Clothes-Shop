@@ -183,7 +183,7 @@ export default {
   },
   components: {
     sideNavBar,
-    Spinner
+    Spinner,
   },
   created() {
     this.getProductInfo(this.$route.params.id);
@@ -211,6 +211,10 @@ export default {
         this.isLoading = false;
       } catch (error) {
         console.log(error);
+        swal({
+          text: "無法取得商品資料，請稍後再試",
+          icon: "error",
+        });
         this.isLoading = false;
       }
     },

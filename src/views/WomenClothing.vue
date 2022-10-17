@@ -7,6 +7,7 @@
 import googleSheet from "../apis/googleSheet";
 import clothingPage from "../components/ClothingPage.vue";
 import Spinner from "../components/Spinner.vue"
+import swal from "sweetalert";
 
 export default {
   data() {
@@ -41,6 +42,10 @@ export default {
         this.isLoading = false
       } catch (error) {
         console.log(error);
+        swal({
+          text: "無法取得商品資料，請稍後再試",
+          icon: "error",
+        });
         this.isLoading = false
       }
     },
